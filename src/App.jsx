@@ -26,7 +26,7 @@ const App = () => {
   };
 
   return (
-    <div className="app-container"> {/* Add a class for centering */}
+    <div className="app-container">
       <h1>松ノ木 MP3 Downloader</h1>
       {user ? <DownloadButton auth={auth} /> : <LogIn auth={auth} onLogin={handleLogin} />}
     </div>

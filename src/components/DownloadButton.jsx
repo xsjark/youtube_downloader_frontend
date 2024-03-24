@@ -6,6 +6,7 @@ const DownloadButton = ({ auth }) => {
   const [videoUrl, setVideoUrl] = useState('');
   const [isDownloading, setIsDownloading] = useState(false);
 
+  const url = 'http://youtubedownloaderbackend-env.eba-c9vmji4h.us-east-1.elasticbeanstalk.com'
   const handleUrlChange = (event) => {
     setVideoUrl(event.target.value);
   };
@@ -15,7 +16,7 @@ const DownloadButton = ({ auth }) => {
   //   console.log(user)
   //   if (user) {
   //     const idToken = await user.getIdToken();
-  //     const response = await fetch('http://localhost:3000/download', {
+  //     const response = await fetch('http://increaseram-env.eba-gr5fympg.us-east-1.elasticbeanstalk.com/download', {
   //       method: 'GET',
   //       headers: {
   //         Authorization: `Bearer ${idToken}`,
@@ -28,11 +29,8 @@ const DownloadButton = ({ auth }) => {
   //   }
   // };
   const downloadOnServer = async () => {
+
     const user = auth.currentUser;
-    // if (user) {
-    //   const idToken = await user.getIdToken();
-    //   console.log(idToken)
-    // }
     
     try {
       if (!user) return;
@@ -41,7 +39,7 @@ const DownloadButton = ({ auth }) => {
   
       const idToken = await user.getIdToken();
 
-      const response = await fetch('https://youtube-downloader-backend-sepia.vercel.app/download', {
+      const response = await fetch(`${url}/download`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +65,7 @@ const DownloadButton = ({ auth }) => {
     <div className="centered-layout">
       <input type="text" value={videoUrl} onChange={handleUrlChange} placeholder="Enter YouTube video URL" />
       <button onClick={downloadOnServer} disabled={downloaded || isDownloading}>Download MP3</button>
-      {downloaded && <a href="https://youtube-downloader-backend-sepia.vercel.app/download-file" download>Download from Server</a>}
+      {downloaded && <a href={`${url}/download-file`}>Download File</a>}
     </div>
   );
 };
